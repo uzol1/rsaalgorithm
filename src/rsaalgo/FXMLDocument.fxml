@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rsaalgo.FXMLDocumentController">
+    <children>
+        <Button fx:id="button" layoutX="81.0" layoutY="149.0" onAction="#handleButtonAction" text="encrypt" />
+        <Label fx:id="label" layoutX="14.0" layoutY="49.0" minHeight="16" minWidth="69" text="text to encrypt" />
+      <TextField id="etext" fx:id="etext" layoutX="14.0" layoutY="79.0" prefHeight="58.0" prefWidth="133.0" promptText="text to encrypt" />
+      <TextField id="dtext" fx:id="dtext" layoutX="173.0" layoutY="79.0" prefHeight="58.0" prefWidth="133.0" promptText="text to decrypt" />
+      <Button fx:id="button1" layoutX="240.0" layoutY="149.0" onAction="#decryptbutton" text="decrypt" />
+      <Label fx:id="label1" layoutX="173.0" layoutY="49.0" minHeight="16" minWidth="69" text="encrypted/decrypted text" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="320.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+    </children>
+</AnchorPane>

@@ -16,6 +16,7 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Base64;
 
 import javax.crypto.Cipher;
 
@@ -75,7 +76,7 @@ public class EncryptionUtil {
         }
         return false;
     }
-        public static byte[] encrypt(String text, PublicKey key)
+        public static byte[] encrypt(byte[] text, PublicKey key)
     {
         byte[] cipherText = null;
         try
@@ -84,12 +85,14 @@ public class EncryptionUtil {
             final Cipher cipher = Cipher.getInstance(ALGORITHM);
             // encrypt the plain text using the public key
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            cipherText = cipher.doFinal(text.getBytes());
+           cipherText = cipher.doFinal(text);
+            
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+        
         return cipherText;
     
     }

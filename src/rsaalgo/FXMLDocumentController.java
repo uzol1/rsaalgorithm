@@ -11,12 +11,14 @@ import java.net.URL;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -41,20 +43,22 @@ public class FXMLDocumentController implements Initializable {
             enalgo= new EncryptionUtil();
 
             // Check if the pair of keys are present else generate those.
-            if (!enalgo.areKeysPresent())
+            if (!EncryptionUtil.areKeysPresent())
             {
                 // Method generates a pair of keys using the RSA algorithm and stores it
                 // in their respective files
-                enalgo.generateKey();
+                EncryptionUtil.generateKey();
             }
-             ObjectInputStream inputStream = null;
+             ObjectInputStream inputStream ;
              String text=etext.getText();
+             byte[] message = text.getBytes("UTF8");
               inputStream = new ObjectInputStream(new FileInputStream("C:/keys/public"));
             final PublicKey publicKey = (PublicKey) inputStream.readObject();
-            final byte[] cipherText = enalgo.encrypt(text, publicKey);
-            String en=cipherText.toString();
-            dtext.setText(en);
+            final byte[] cipherText = EncryptionUtil.encrypt(message, publicKey);
+            
+             dtext.setText( DatatypeConverter.printBase64Binary(cipherText));
 
+            System.out.println("encrypted text"+cipherText);
         }catch(Exception e){
          e.printStackTrace();
         }
@@ -69,10 +73,11 @@ public class FXMLDocumentController implements Initializable {
         ObjectInputStream inputStream1 = null;
         try{
           String encrypted=dtext.getText();
-          byte[] ebyte = encrypted.getBytes();
+          byte[] fin =DatatypeConverter.parseBase64Binary(encrypted);
          inputStream1 = new ObjectInputStream(new FileInputStream("C:/keys/private"));
             final PrivateKey privateKey = (PrivateKey) inputStream1.readObject();
-            final String plainText = enalgo.decrypt(ebyte, privateKey);
+            final String plainText = EncryptionUtil.decrypt(fin, privateKey);
+            dtext.setText(plainText);
         }catch(Exception e)
         {
          e.printStackTrace();   
